@@ -2,7 +2,7 @@ package conversion;
 
 import com.google.gson.internal.bind.util.ISO8601Utils;
 
-public class RealizarOperaciones extends Conversor {
+public class RealizarOperaciones  {
     public String moneda;
     Double Dolar;
     Double PesoArgentino;

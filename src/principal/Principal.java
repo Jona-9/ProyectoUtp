@@ -21,7 +21,7 @@ public class Principal {
         TransformandoDatos datos = respuesta.conversion_rates();
         RealizarOperaciones realizar = new RealizarOperaciones(datos);
         String mensaje = """
-                *----Bienvenido al conversor de monedas----*
+                *----Bienvenido al conversor de monedas UTP----*
                 1) Dólar --> Sol Peruano
                 2) Sol Peruano --> Dólar
                 3) Dólar --> Peso Argentino
