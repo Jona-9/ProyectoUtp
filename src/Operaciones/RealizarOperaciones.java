@@ -1,6 +1,6 @@
-package conversion;
+package Operaciones;
 
-import com.google.gson.internal.bind.util.ISO8601Utils;
+import ConversionDatos.TransformandoDatos;
 
 public class RealizarOperaciones  {
     public String moneda;
@@ -21,6 +21,7 @@ public class RealizarOperaciones  {
 
     public double conversion(int numero, double cantidad) {
         Double transformar = switch (numero) {
+
             case 1 -> cantidad * (SolPeruano / Dolar);
             case 2 -> cantidad * (Dolar / SolPeruano);
             case 3 -> cantidad * (PesoArgentino / Dolar);

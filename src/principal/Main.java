@@ -1,20 +1,19 @@
 package principal;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import conversion.ApiResponse;
-import conversion.Conversor;
-import conversion.RealizarOperaciones;
-import conversion.TransformandoDatos;
+import ConversionDatos.ApiResponse;
+import ConversionDatos.RespuestaAPI;
+import Operaciones.RealizarOperaciones;
+import ConversionDatos.TransformandoDatos;
 import java.io.IOException;
 import java.util.*;
 
-public class Principal {
+public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner lec = new Scanner(System.in);
         Gson gson = new GsonBuilder().create();
-        Conversor conversor = new Conversor();
+        RespuestaAPI conversor = new RespuestaAPI();
         String json = conversor.convercion("USD");
         ApiResponse respuesta = gson.fromJson(json, ApiResponse.class);
         TransformandoDatos datos = respuesta.conversion_rates();
