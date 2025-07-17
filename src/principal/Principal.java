@@ -7,7 +7,6 @@ import conversion.ApiResponse;
 import conversion.Conversor;
 import conversion.RealizarOperaciones;
 import conversion.TransformandoDatos;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -71,6 +70,6 @@ public class Principal {
             };
             System.out.println(mostrar);
         } while (numero != 9);
-        System.out.println("--Saliendo del programa--");
+        System.out.println("--Saliendo - del  - programa--");
     }
 }
