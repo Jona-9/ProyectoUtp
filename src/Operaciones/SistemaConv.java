@@ -16,7 +16,7 @@ public class SistemaConv {
     private Gson gson;
     private RespuestaAPI conversor;
     private RealizarOperaciones realizarOperaciones;
-    private Pais PaisElegido;
+    private Pais paisElegido;
     private String monedaClave;
 
     public void ejecutar() {
@@ -41,13 +41,13 @@ public class SistemaConv {
 
     public void seleccionarPais() {
         listadoDePaises();
-        int eleccion = validarOpcionIngresada();
+        int eleccion = validarOpcionPais();
         colocarPais(eleccion);
-        System.out.println("El país elegido es: " + this.PaisElegido.getNombre());
+        System.out.println("El país elegido es: " + this.paisElegido.getNombre());
     }
 
     public void configMoneda() {
-        this.monedaClave = PaisElegido.getMonedaCodigo();
+        this.monedaClave = paisElegido.getMonedaCodigo();
         System.out.println(this.monedaClave);
     }
 
@@ -63,21 +63,51 @@ public class SistemaConv {
         }
     }
 
-    public int validarOpcionIngresada() {
+    public void iniciarOperaciones() {
+        double cantidadDinero = solicitarCantidad();
+        int opcionConversion = validarOpcionConversion();
+
+
+    }
+
+    
+
+    public int validarOpcionConversion() {
+        mostrarBienvenida();
+        int opcionConversion = 0;
+        do {
+            generarMenuPais(this.paisElegido);
+            opcionConversion = this.scanner.nextInt();
+            if (opcionConversion < 1 || opcionConversion > 9) {System.out.println("Error: Ingrese el número en el rango indicado");}
+            else if (opcionConversion == 9)                   {break;}
+        } while (opcionConversion < 1 || opcionConversion > 9);
+
+            return opcionConversion;
+    }
+
+    public int validarOpcionPais() {
         int opcion = 0;
         do {
             try {
                 opcion = this.scanner.nextInt();
                 // Si hay tiempo, creamos una excepción para este caso.
-                if (opcion < 1 || opcion > 6) {System.out.println("Error: Introduzca un número en un rango del 1 al 7 ");}
+                if (opcion < 1 || opcion > 6) {System.out.println("Error: Introduzca un número en un rango del 1 al 6");}
             }   catch (InputMismatchException e) {System.out.println("Error: Introduzca un valor válido ");}
 
         } while (opcion < 1 || opcion > 6);
         return opcion;
     }
 
+    public double solicitarCantidad() {
+        this.scanner.nextLine();
+        System.out.println("Ingrese la cantidad de dinero a convertir:");
+        return this.scanner.nextDouble();
+    }
+
+
+
     private void colocarPais(int eleccion) {
-        PaisElegido = switch (eleccion) {
+        this.paisElegido = switch (eleccion) {
             case 1 -> Pais.USA;
             case 2 -> Pais.PERU;
             case 3 -> Pais.ARGENTINA;
@@ -105,7 +135,7 @@ public class SistemaConv {
     }
     private void mostrarBienvenida() {
         System.out.println("----Bienvenido al conversor de monedas UTP----");
-        System.out.println("País: " + this.PaisElegido.getNombre());
+        System.out.println("País: " + this.paisElegido.getNombre());
         System.out.println("Moneda base: " + this.monedaClave);
         System.out.println("═══════════════════════════════════════");
     }
@@ -113,7 +143,7 @@ public class SistemaConv {
         String menuPais = switch (pais) {
             case PERU -> """
             ═══════════════════════════════════════
-            %s CONVERSOR DE MONEDAS - PERÚ
+              CONVERSOR DE MONEDAS - PERÚ
             ═══════════════════════════════════════
             1) Sol Peruano --> Dólar (USD)
             2) Dólar --> Sol Peruano (PEN)
@@ -125,10 +155,10 @@ public class SistemaConv {
             8) Peso Colombiano --> Sol Peruano (PEN)
             9) Salir
             ═══════════════════════════════════════
-            Seleccione una opción: """;
+            Seleccione una opción:""";
             case ARGENTINA -> """
             ═══════════════════════════════════════
-            %s CONVERSOR DE MONEDAS - ARGENTINA
+              CONVERSOR DE MONEDAS - ARGENTINA
             ═══════════════════════════════════════
             1) Peso Argentino --> Dólar (USD)
             2) Dólar --> Peso Argentino (ARS)
@@ -140,10 +170,10 @@ public class SistemaConv {
             8) Peso Colombiano --> Peso Argentino (ARS)
             9) Salir
             ═══════════════════════════════════════
-            Seleccione una opción: """;
+            Seleccione una opción:""";
             case BRASIL -> """
             ═══════════════════════════════════════
-            %s CONVERSOR DE MONEDAS - BRASIL
+              CONVERSOR DE MONEDAS - BRASIL
             ═══════════════════════════════════════
             1) Real Brasileño --> Dólar (USD)
             2) Dólar --> Real Brasileño (BRL)
@@ -155,10 +185,10 @@ public class SistemaConv {
             8) Peso Colombiano --> Real Brasileño (BRL)
             9) Salir
             ═══════════════════════════════════════
-            Seleccione una opción: """;
+            Seleccione una opción:""";
             case COLOMBIA -> """
             ═══════════════════════════════════════
-            %s CONVERSOR DE MONEDAS - COLOMBIA
+              CONVERSOR DE MONEDAS - COLOMBIA
             ═══════════════════════════════════════
             1) Peso Colombiano --> Dólar (USD)
             2) Dólar --> Peso Colombiano (COP)
@@ -170,10 +200,10 @@ public class SistemaConv {
             8) Real Brasileño --> Peso Colombiano (COP)
             9) Salir
             ═══════════════════════════════════════
-            Seleccione una opción: """;
+            Seleccione una opción:""";
             case CHILE -> """
             ═══════════════════════════════════════
-            %s CONVERSOR DE MONEDAS - CHILE
+               CONVERSOR DE MONEDAS - CHILE
             ═══════════════════════════════════════
             1) Peso Chileno --> Dólar (USD)
             2) Dólar --> Peso Chileno (CLP)
@@ -185,10 +215,10 @@ public class SistemaConv {
             8) Real Brasileño --> Peso Chileno (CLP)
             9) Salir
             ═══════════════════════════════════════
-            Seleccione una opción: """;
+            Seleccione una opción:""";
             case USA -> """
             ═══════════════════════════════════════
-            %s CONVERSOR DE MONEDAS - ESTADOS UNIDOS
+              CONVERSOR DE MONEDAS - ESTADOS UNIDOS
             ═══════════════════════════════════════
             1) Dólar --> Peso Argentino (ARS)
             2) Peso Argentino --> Dólar (USD)
@@ -200,7 +230,8 @@ public class SistemaConv {
             8) Peso Colombiano --> Dólar (USD)
             9) Salir
             ═══════════════════════════════════════
-            Seleccione una opción: """;
+            Seleccione una opción:""";
         };
+        System.out.println(menuPais);
     }
 }
