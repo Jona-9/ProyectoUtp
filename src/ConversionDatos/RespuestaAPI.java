@@ -13,6 +13,5 @@ public class RespuestaAPI {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://v6.exchangerate-api.com/v6/c435e52cae63aac78a5345d9/latest/" + tipoDemoneda)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return response.body();
-
     }
 }

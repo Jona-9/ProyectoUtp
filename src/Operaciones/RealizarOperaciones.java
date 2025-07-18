@@ -19,7 +19,7 @@ public class RealizarOperaciones  {
         this.PesoColombiano = Double.valueOf(transformandoDatos.COP());
     }
 
-    public double conversion(int numero, double cantidad) {
+    public double hacerConversion(int numero, double cantidad) {
         Double transformar = switch (numero) {
 
             case 1 -> cantidad * (SolPeruano / Dolar);

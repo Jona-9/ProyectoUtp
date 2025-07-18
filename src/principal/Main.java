@@ -48,23 +48,25 @@ public class Main {
             cantidad = lec.nextDouble();
             String mostrar = switch (numero) {
                 case 1 ->
-                        String.format("Su cantidad ingresada en $%.2f es %.2f Soles ", cantidad, realizar.conversion(numero, cantidad));
+                        String.format("Su cantidad ingresada en $%.2f es %.2f Soles ", cantidad, realizar.hacerConversion(numero, cantidad));
                 case 2 ->
-                        String.format("Su cantidad ingresada en S/%.2f es %.2f Dólares ", cantidad, realizar.conversion(numero, cantidad));
+                        String.format("Su cantidad ingresada en S/%.2f es %.2f Dólares ", cantidad, realizar.hacerConversion(numero, cantidad));
                 case 3 ->
-                        String.format("Su cantidad ingresada en $%.2f es %.2f Pesos Argentinos ", cantidad, realizar.conversion(numero, cantidad));
+                        String.format("Su cantidad ingresada en $%.2f es %.2f Pesos Argentinos ", cantidad, realizar.hacerConversion(numero, cantidad));
                 case 4 ->
-                        String.format("Su cantidad ingresada en ARS %.2f es %.2f Dólares ", cantidad, realizar.conversion(numero, cantidad));
+                        String.format("Su cantidad ingresada en ARS %.2f es %.2f Dólares ", cantidad, realizar.hacerConversion(numero, cantidad));
                 case 5 ->
-                        String.format("Su cantidad ingresada en  $%.2f es %.2f Real brasileño ", cantidad, realizar.conversion(numero, cantidad));
+                        String.format("Su cantidad ingresada en  $%.2f es %.2f Real brasileño ", cantidad, realizar.hacerConversion(numero, cantidad));
                 case 6 ->
-                        String.format("Su cantidad ingresada en  BRL %.2f es %.2f Dólares ", cantidad, realizar.conversion(numero, cantidad));
+                        String.format("Su cantidad ingresada en  BRL %.2f es %.2f Dólares ", cantidad, realizar.hacerConversion(numero, cantidad));
                 case 7 ->
-                        String.format("Su cantidad ingresada en   $%.2f es %.2f Peso Colombiano ", cantidad, realizar.conversion(numero, cantidad));
+                        String.format("Su cantidad ingresada en   $%.2f es %.2f Peso Colombiano ", cantidad, realizar.hacerConversion(numero, cantidad));
                 case 8 ->
-                        String.format("Su cantidad ingresada en   Col %.2f es %.2f Dólares ", cantidad, realizar.conversion(numero, cantidad));
-                case 9 -> String.format("Saliendo del programa");
-                default -> String.format("--Finalizando el programa--");
+                        String.format("Su cantidad ingresada en   Col %.2f es %.2f Dólares ", cantidad, realizar.hacerConversion(numero, cantidad));
+                case 9 ->
+                        String.format("Saliendo del programa");
+                default ->
+                        String.format("--Finalizando el programa--");
 
             };
             System.out.println(mostrar);
