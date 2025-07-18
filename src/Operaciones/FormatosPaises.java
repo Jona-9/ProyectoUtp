@@ -1,123 +1,23 @@
 package Operaciones;
 
-import ConsolaUI.Mensajes;
-import ConversionDatos.*;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import ConversionDatos.MonedaSimbolo;
+import ConversionDatos.Pais;
+import ConversionDatos.TransformandoDatos;
 
-import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-public class SistemaConv {
-    private Scanner scanner;
-    private Gson gson;
-    private RespuestaAPI conversor;
-    private RealizarOperaciones realizarOperaciones;
-    private Pais paisElegido;
-    private String monedaClave;
-    private Mensajes escribirConsola;
+public class FormatosPaises {
 
-    public void ejecutar() {
-        try {
-            inicializar();
-            seleccionarPais();
-            configMoneda();
-            obtenerDatosAPI();
-            // Metodos faltantes:
-            // Bienvenida al programa luego de los ajustes de usuario
-            // Metodo que use el atributo "realizarOperaciones" para mostrar resultados
-        } catch (Exception e) {
-            System.out.println("Error: Ha ocurrido un error no identificado");
-        }
-    }
+    RealizarOperaciones realizarOpera = new RealizarOperaciones();
 
-    public void inicializar() {
-        this.scanner = new Scanner(System.in);
-        this.gson = new GsonBuilder().create();
-        this.conversor = new RespuestaAPI();
-        this.escribirConsola = new Mensajes();
-    }
-
-    public void seleccionarPais() {
-        escribirConsola.paisesLista();
-        int eleccion = validarOpcionPais();
-        colocarPais(eleccion);
-    }
-
-    public void configMoneda() {
-        this.monedaClave = paisElegido.getMonedaCodigo();
-    }
-
-    public TransformandoDatos obtenerDatosAPI() throws IOException, InterruptedException {
-        TransformandoDatos datos = null;
-        try {
-            String json = this.conversor.convercion(this.monedaClave);
-            ApiResponse respuesta = this.gson.fromJson(json, ApiResponse.class);
-            datos = respuesta.conversion_rates();
-        } catch (Exception e) {
-            System.out.println("Error en la obtención de datos: " + e.getMessage());
-        }
-        return datos;
-    }
-
-    public void iniciarOperaciones() {
-
-
-
-    }
-
-    public int validarOpcionConversion() {
-        escribirConsola.mostrarBienvenida(this.paisElegido);
-        int opcionConversion = 0;
-        do {
-            escribirConsola.generarMenuPais(this.paisElegido);
-            opcionConversion = this.scanner.nextInt();
-            if (opcionConversion < 1 || opcionConversion > 9) {System.out.println("Error: Ingrese el número en el rango indicado");}
-            else if (opcionConversion == 9)                   {break;}
-        } while (opcionConversion < 1 || opcionConversion > 9);
-
-            return opcionConversion;
-    }
-
-    public int validarOpcionPais() {
-        int opcion = 0;
-        do {
-            try {
-                opcion = this.scanner.nextInt();
-                // Si hay tiempo, creamos una excepción para este caso.
-                if (opcion < 1 || opcion > 6) {System.out.println("Error: Introduzca un número en un rango del 1 al 6");}
-            }   catch (InputMismatchException e) {System.out.println("Error: Introduzca un valor válido ");}
-
-        } while (opcion < 1 || opcion > 6);
-        return opcion;
-    }
-
-    public double solicitarCantidad() {
-        this.scanner.nextLine();
-        System.out.println("Ingrese la cantidad de dinero a convertir:");
-        return this.scanner.nextDouble();
-    }
-
-
-
-    private void colocarPais(int eleccion) {
-        this.paisElegido = switch (eleccion) {
-            case 1 -> Pais.USA;
-            case 2 -> Pais.PERU;
-            case 3 -> Pais.ARGENTINA;
-            case 4 -> Pais.BRASIL;
-            case 5 -> Pais.COLOMBIA;
-            case 6 -> Pais.CHILE;
-            default -> Pais.USA;
-        };
-    }
-    public void formatoConversion() {
+    public void formatoConversion(Pais pais) {
         Double cantidadDinero = solicitarCantidad();
         int opcionConversion = validarOpcionConversion();
 
         Map<Integer, MonedaSimbolo> elecciones = new HashMap<>();
-        switch (this.paisElegido) {
+        switch (pais) {
             case PERU -> {
                 elecciones.put(1, new MonedaSimbolo(Pais.PERU, Pais.USA));
                 elecciones.put(2, new MonedaSimbolo(Pais.USA, Pais.PERU));
